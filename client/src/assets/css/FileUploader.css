@@ -1,0 +1,22 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+  }
+  label {
+    width: 350px;
+    box-sizing: border-box;
+  }
+  
+  .file-Wrapper {
+    width: 100%;
+    display: inline;
+    /* flex-wrap: wrap; */
+    justify-content: space-evenly;
+    /* margin: 50px; */
+  }
+
