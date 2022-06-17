@@ -1,5 +1,6 @@
 let express = require('express'),
     multer = require('multer'),
+    path = require('path')
     router = express.Router();
 
 const pdfMerge = require('easy-pdf-merge'),
@@ -48,12 +49,14 @@ router.post('/upload-images', upload.array('imgCollection', 100), (req, res, nex
 // var mergepdffilesupload = multer({storage:storage,fileFilter:mergepdffilter})
 
 router.post('/mergepdf', upload.array('file',100), (req,res) => {
-    const files = [], url = req.protocol + '://' + req.get('host') + "/public/" + Date.now() + "-output.pdf"
-    const outputFilePath = __dirname + "\\..\\public\\" + Date.now() + "-output.pdf"
+    const files = [];
+    const outputFileName = Date.now() + "-output.pdf";
+    const url = req.protocol + '://' + req.get('host') + "/public/" + outputFileName;
+    const outputFilePath = path.resolve("public/" + outputFileName);
 
     if (req.files) {
       req.files.forEach(file => {
-          files.push(__dirname + "\\..\\public\\" + file.filename)
+          files.push(path.resolve("public/" + file.filename))
       });
 
       const opts = {
@@ -89,6 +92,7 @@ router.post('/mergepdf', upload.array('file',100), (req,res) => {
 })
 
 router.get("/", (req, res, next) => {
+    console.log(path.resolve('../public/'))
     res.status(200).json({
         message: "User list retrieved successfully!",
     });
