@@ -6,10 +6,11 @@ let express = require('express'),
 const pdfMerge = require('easy-pdf-merge'),
         fs = require("fs");
 
-const DIR = './public/';
+const DIR = path.resolve('./public/');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
+        fs.mkdirSync(DIR, { recursive: true })
         cb(null, DIR);
     },
     filename: (req, file, cb) => {
@@ -31,22 +32,6 @@ var upload = multer({
         }
     }
 });
-
-// User model
-let User = require('../models/User');
-
-router.post('/upload-images', upload.array('imgCollection', 100), (req, res, next) => {
-    console.log('router');
-    const reqFiles = [];
-    const url = req.protocol + '://' + req.get('host')
-    for (var i = 0; i < req.files.length; i++) {
-        reqFiles.push(url + '/public/' + req.files[i].filename)
-    }
-
-    console.log(reqFiles)
-})
-
-// var mergepdffilesupload = multer({storage:storage,fileFilter:mergepdffilter})
 
 router.post('/mergepdf', upload.array('file',100), (req,res) => {
     const files = [];

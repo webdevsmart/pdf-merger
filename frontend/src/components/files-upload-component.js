@@ -160,8 +160,7 @@ const FilesUploadComponent = () => {
 			formData.append('file', file)
 		})
 		
-		let apiUrl = process.env.REACT_APP_BASE_URL
-		apiUrl += "/api/mergepdf"
+		const apiUrl = "/api/mergepdf"
 		axios
 			.post(apiUrl, formData, {})
 			.then(res => {
