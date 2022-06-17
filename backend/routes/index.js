@@ -36,10 +36,8 @@ var upload = multer({
 router.post('/mergepdf', upload.array('file',100), (req,res) => {
     const files = [];
     const outputFileName = Date.now() + "-output.pdf";
-    const url = req.headers["x-forwarded-proto"] + '://' + req.headers["x-forwarded-host"] + "/public/" + outputFileName;
+    const url = process.env.HOST + "/public/" + outputFileName;
     const outputFilePath = path.resolve("public/" + outputFileName);
-
-    console.log(req)
 
     if (req.files) {
       req.files.forEach(file => {
