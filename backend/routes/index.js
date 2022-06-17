@@ -89,11 +89,8 @@ router.post('/mergepdf', upload.array('file',100), (req,res) => {
 })
 
 router.get("/", (req, res, next) => {
-    User.find().then(data => {
-        res.status(200).json({
-            message: "User list retrieved successfully!",
-            users: data
-        });
+    res.status(200).json({
+        message: "User list retrieved successfully!",
     });
 });
 
